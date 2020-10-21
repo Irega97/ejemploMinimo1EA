@@ -1,2 +1,1 @@
-# ejemploMinimo1EA
- 
+# ejemploMinimo1EA 
