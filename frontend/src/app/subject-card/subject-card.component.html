@@ -1,0 +1,14 @@
+<div class="subject-card" *ngIf="subject">
+
+    <div class="subject-title">
+        {{subjectIndex+1 + ' ' + subject.name}}
+    </div>
+
+    <div class="students">
+        <app-student-card *ngFor="let student of students; index as i"
+        [student]="student"></app-student-card>
+    </div>
+
+    <hr> <!--AÑADE RAYA ENTRE CURSOS-->
+    
+</div>
