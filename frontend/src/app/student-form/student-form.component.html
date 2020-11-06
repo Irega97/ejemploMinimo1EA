@@ -1,0 +1,42 @@
+<h1 style="text-align: center">ADD NEW STUDENT</h1>
+<div class="login">
+  <h2 class="login-header">New Subject</h2>
+  <form [formGroup]="studentForm" class="login-container" (ngSubmit)="submitStudent()">
+    <input type="name" placeholder="Name*" formControlName="name" />
+    <ng-container
+      *ngIf="!formControls.name.valid &&formControls.name.touched"
+    >
+      <p *ngIf="formControls.name.errors.required">
+        Name is required
+      </p>
+    </ng-container>
+
+    <input type="address" placeholder="Address*" formControlName="address" />
+    <ng-container
+      *ngIf="!formControls.address.valid &&formControls.addresss.touched"
+    >
+      <p *ngIf="formControls.address.errors.required">
+        Address is required
+      </p>
+    </ng-container>
+
+    <input type="phone1" placeholder="Home phone *" formControlName="phone1" />
+    <ng-container
+      *ngIf="!formControls.phone1.valid &&formControls.phone1.touched"
+    >
+      <p *ngIf="formControls.phone1.errors.required">
+        Phone is required
+      </p>
+    </ng-container>
+
+    <input type="phone2" placeholder="Work phone" formControlName="phone2" />
+    <ng-container
+      *ngIf="formControls.phone2.touched"
+    >
+    </ng-container>
+
+    <p>
+      <input type="submit" value="Submit" [disabled]="studentForm.invalid" />
+    </p>
+  </form>
+</div>

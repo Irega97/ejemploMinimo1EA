@@ -1,14 +1,16 @@
 <div class="subject-card" *ngIf="subject">
 
     <div class="subject-title">
-        {{subjectIndex+1 + ' ' + subject.name}}
+        <h2>{{subjectIndex+1 + ' - ' + subject.name}}</h2>
     </div>
 
     <div class="students">
-        <app-student-card *ngFor="let student of students; index as i"
-        [student]="student"></app-student-card>
+        <app-student-card *ngFor="let student of subject.students; index as i"
+        [student]="student" [index]="i"></app-student-card>
     </div>
 
-    <hr> <!--AÑADE RAYA ENTRE CURSOS-->
-    
+    <div class="center">
+        <button (click)="addStudent()" class="button">Add new student</button>
+    </div>
+
 </div>

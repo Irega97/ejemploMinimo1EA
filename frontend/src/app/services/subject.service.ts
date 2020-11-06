@@ -1,3 +1,4 @@
+import { Student } from './../model/student';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -11,6 +12,14 @@ export class SubjectService {
   constructor(private http: HttpClient) { }
 
   getSubjects(){
-    return this.http.get<Subject[]>(environment.apiURL+'/subject/all')
+    return this.http.get<Subject[]>(environment.apiURL + '/subject/all');
+  }
+
+  newSubject(newSubject: Subject) {
+    return this.http.post(environment.apiURL + '/subject/new', newSubject);
+  }
+
+  addStudent(newStudent: Student) {
+    return this.http.post(environment.apiURL + '/subject/newStudent', newStudent);
   }
 }

@@ -1,17 +1,18 @@
 <div class="student-card" *ngIf="student">
 
     <div class="student-name">
-        Nombre: {{student.name}}
+        Student {{index+1}}: {{student.name}}
     </div>
 
     <div class="student-address">
-        Dirección {{student.address}}
+        Dirección: {{student.address}}
     </div>
 
-    <div class="student-phones">
-        Telefonos: {{student.phone}}
+    Telefonos:
+    <div class="student-phones" *ngFor="let phone of student.phones">
+         {{phone|json}} <!--PREGUNTAR-->
     </div>
-
-    <hr> <!--AÑADE RAYA ENTRE CURSOS-->
+    <p>PREGUNTAR PARA QUITAR | json </p>
     
 </div>
+<br>

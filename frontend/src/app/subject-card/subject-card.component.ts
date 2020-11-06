@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Subject } from './../model/subject';
 import { Component, Input, OnInit } from '@angular/core';
 import { Student } from '../model/student';
@@ -18,9 +19,13 @@ export class SubjectCardComponent implements OnInit {
   @Input()
   students: Student;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  addStudent(){
+    this.router.navigateByUrl('/newStudent');
   }
 
 }
