@@ -9,8 +9,8 @@ const studentSchema = new Schema({
         type: String
     },
     phones: [{
-        key: String,
-        value: String
+        name: String,
+        number: String
     }]
 });
 
@@ -18,7 +18,7 @@ const studentSchema = new Schema({
 export interface IStudent extends Document {
     nombre: string;
     address: string;
-    phones: Array<object>;
+    phones: Array<Object>;
 }
 
 //Exportamos modelo para poder usarlo

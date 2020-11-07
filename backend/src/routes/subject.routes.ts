@@ -13,7 +13,8 @@ const router = Router();
 
 router.get('/all', subjectController.getSubjects);
 router.get('/:id', subjectController.getSubject);
-router.post('/addStudent', subjectController.addStudentToSubject);
+router.post('/new', subjectController.addSubject);
+router.post('/newStudent', subjectController.addStudentToSubject);
 
 //Exportamos router para usar rutas en app.ts
 export default router;
