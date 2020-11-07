@@ -17,7 +17,10 @@ export class StudentFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.nullValidator]]
+      name: ['', [Validators.required, Validators.nullValidator]],
+      address: ['', [Validators.required, Validators.nullValidator]],
+      phone1: ['', [Validators.required, Validators.nullValidator]],
+      phone2: ['']
     });
   }
   get formControls(){
@@ -29,7 +32,7 @@ export class StudentFormComponent implements OnInit {
     if(this.studentForm.invalid){
       return;
     }
-    this.subjectService.newSubject(this.studentForm.value)
+    this.subjectService.addStudent(this.studentForm.value)
     .subscribe((student: Student) => {
       this.router.navigateByUrl('/subjects');
     });
