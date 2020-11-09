@@ -3,8 +3,6 @@ import Subject from "../models/subject";
 import Student from "../models/student";
 
 const getSubjects = async (req: Request, res: Response) => {
-    //El await hace que la siguiente linea no se ejecute
-    //hasta que el resultado no se haya obtenido
     try{
         const results = await Subject.find({}).populate('students');
         return res.status(200).json(results);
@@ -24,22 +22,29 @@ const getSubject = async (req: Request, res: Response) => {
 
 const addStudentToSubject = async (req: Request, res: Response) => {
     let subjectName = req.params.subjectName;
-    let studentName = req.body.name;
-    let studentAddress = req.body.address;
-
-    let studentID;
-    let student = new Student({
-        "name": studentName,
-        "address": studentAddress
-    });
-    let s = await Student.find(student);
-    console.log("S: ", s);
-    if(!s) student.save().then((data) =>{
-        studentID = data.id;
-        console.log("Sid: ", studentID);
-    }) 
-    await Subject.updateOne({"name": subjectName}, {$addToSet: {students: studentID}});
-    return res.status(201).send({message: 'Student added successfully'});
+    let studentName = req.body.name; 
+    let studentAddress = req.body.address; 
+    let studentID; 
+    let student = new Student({ "name": studentName, "address": studentAddress });
+    let s = await Student.findOne({name: studentName}); 
+    console.log("S: ", s); 
+    if(!s) { 
+        student.save().then((data) => { 
+        studentID = data.id; 
+        console.log("Sid: ", studentID); 
+        });
+    } else studentID = s._id; 
+    console.log("Student ID",studentID );
+    await Subject.updateOne({"name": subjectName}, {$addToSet: {students: studentID}}).then(data => { 
+        if (data.nModified == 1) { 
+            console.log("Student added successfully"); 
+            res.status(201).send({message: 'Student added successfully'}); 
+        } else { 
+            res.status(409).json('Student already exists!!!') 
+    } }).catch((err) => { 
+        console.log("error ", err); 
+        res.status(500).json(err); 
+    }); 
 }
 
 const addSubject = async (req: Request, res: Response) => {
