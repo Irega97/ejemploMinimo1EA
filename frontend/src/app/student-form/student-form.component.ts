@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Student } from '../model/student';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-student-form',
@@ -13,9 +14,14 @@ export class StudentFormComponent implements OnInit {
 
   studentForm: FormGroup;
   isSubmitted = false;
-  constructor(public subjectService: SubjectService, private router: Router, private formBuilder: FormBuilder) { }
+  url;
+  subjectName;
+
+  constructor(public subjectService: SubjectService, private router: Router, 
+              private formBuilder: FormBuilder, private route: ActivatedRoute){ }
 
   ngOnInit(): void {
+    this.subjectName = this.route.snapshot.paramMap.get("subjectName")
     this.studentForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.nullValidator]],
       address: ['', [Validators.required, Validators.nullValidator]],
@@ -32,7 +38,7 @@ export class StudentFormComponent implements OnInit {
     if(this.studentForm.invalid){
       return;
     }
-    this.subjectService.addStudent(this.studentForm.value)
+    this.subjectService.addStudent(this.studentForm.value, this.subjectName)
     .subscribe((student: Student) => {
       this.router.navigateByUrl('/subjects');
     });

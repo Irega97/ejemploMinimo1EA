@@ -19,7 +19,7 @@ export class SubjectService {
     return this.http.post(environment.apiURL + '/subject/new', newSubject);
   }
 
-  addStudent(newStudent: Student) {
-    return this.http.post(environment.apiURL + '/subject/newStudent', newStudent);
+  addStudent(newStudent: Student, subjectName: string) {
+    return this.http.post(environment.apiURL + '/subject/newStudent/' + subjectName, newStudent);
   }
 }

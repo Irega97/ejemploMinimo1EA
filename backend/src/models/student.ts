@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document} from 'mongoose';
+import { Identifier, ObjectDestructuringAssignment } from 'typescript';
 
 //Modelo de objeto que se guarda en la BBDD de MongoDB
 const studentSchema = new Schema({
@@ -16,7 +17,7 @@ const studentSchema = new Schema({
 
 //Interfaz para tratar respuesta como documento
 export interface IStudent extends Document {
-    nombre: string;
+    name: string;
     address: string;
     phones: Array<Object>;
 }

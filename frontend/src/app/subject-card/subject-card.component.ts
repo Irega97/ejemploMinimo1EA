@@ -24,8 +24,8 @@ export class SubjectCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addStudent(){
-    this.router.navigateByUrl('/newStudent');
+  addStudent(subjectName: string){
+    this.router.navigateByUrl('/newStudent/' + subjectName);
   }
 
 }

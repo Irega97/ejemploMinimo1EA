@@ -1,6 +1,5 @@
 import {Router} from "express"; 
 import subjectController from '../controllers/subject.controller'
-import subject from "../models/subject";
 
 //Router nos permite gestionar rutas de la API
 const router = Router();
@@ -14,7 +13,7 @@ const router = Router();
 router.get('/all', subjectController.getSubjects);
 router.get('/:id', subjectController.getSubject);
 router.post('/new', subjectController.addSubject);
-router.post('/newStudent', subjectController.addStudentToSubject);
+router.post('/newStudent/:subjectName', subjectController.addStudentToSubject);
 
 //Exportamos router para usar rutas en app.ts
 export default router;

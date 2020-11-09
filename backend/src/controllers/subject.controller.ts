@@ -23,17 +23,22 @@ const getSubject = async (req: Request, res: Response) => {
 }
 
 const addStudentToSubject = async (req: Request, res: Response) => {
-    let studentID = req.body.studentID;
-    let subjectName = req.body.subjectName;
-    let student = await Student.find({"_id": studentID});
-    if(!student) return res.status(404).send({message: 'Student not found'});
-    else {
-        let subject = await Subject.find({"name": subjectName});
-        if(!subject) 
-            return res.status(404).send({message: 'Subject not found'});
-        else 
-            await Subject.updateOne({"name":req.body.subjectName}, {$addToSet: {students: studentID}});
-    }
+    let subjectName = req.params.subjectName;
+    let studentName = req.body.name;
+    let studentAddress = req.body.address;
+
+    let studentID;
+    let student = new Student({
+        "name": studentName,
+        "address": studentAddress
+    });
+    let s = await Student.find(student);
+    console.log("S: ", s);
+    if(!s) student.save().then((data) =>{
+        studentID = data.id;
+        console.log("Sid: ", studentID);
+    }) 
+    await Subject.updateOne({"name": subjectName}, {$addToSet: {students: studentID}});
     return res.status(201).send({message: 'Student added successfully'});
 }
 
