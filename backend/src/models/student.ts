@@ -13,7 +13,7 @@ const studentSchema = new Schema({
         type: String
     },
     phones: [{
-        type: Schema.Types.Array,
+        type: Object,
         ref: Phone
     }]
 });

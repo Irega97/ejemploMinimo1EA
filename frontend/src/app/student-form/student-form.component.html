@@ -20,7 +20,7 @@
       </p>
     </ng-container>
 
-    <input type="phone1" placeholder="Home phone *" formControlName="phone1" />
+    <input type="phone1" placeholder="Home phone*" formControlName="phone1" />
     <ng-container
       *ngIf="!formControls.phone1.valid &&formControls.phone1.touched"
     >
@@ -29,10 +29,13 @@
       </p>
     </ng-container>
 
-    <input type="phone2" placeholder="Work phone" formControlName="phone2" />
+    <input type="phone2" placeholder="Work phone*" formControlName="phone2" />
     <ng-container
-      *ngIf="formControls.phone2.touched"
+      *ngIf="formControls.phone2.touched && !formControls.phone2.valid"
     >
+    <p *ngIf="formControls.phone2.errors.required">
+      Work phone is required
+    </p>
     </ng-container>
 
     <p>

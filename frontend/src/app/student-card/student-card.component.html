@@ -10,8 +10,7 @@
 
     Telefonos: 
     <div class="student-phones" *ngFor="let phone of student.phones">
-         <p *ngIf="phone?.home!=null"> Home: {{phone?.home}} </p>
-         <p *ngIf="phone?.work!=null"> Work: {{phone?.work}} </p>
+         <p *ngIf="phone?.value!=null">{{phone.key}} : {{phone.value}} </p>
     </div>
     
 </div>

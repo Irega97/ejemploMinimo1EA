@@ -2,9 +2,6 @@ import mongoose, { Schema, Document} from 'mongoose';
 
 //Modelo de objeto que se guarda en la BBDD de MongoDB
 const phoneSchema = new Schema({
-    _id: {
-        type: String
-    },
     key: {
         type: String
     },
@@ -15,7 +12,6 @@ const phoneSchema = new Schema({
 
 //Interfaz para tratar respuesta como documento
 export interface IPhone extends Document {
-    _id: string;
     key: string;
     value: string;
 }

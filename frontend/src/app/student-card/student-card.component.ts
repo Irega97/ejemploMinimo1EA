@@ -18,7 +18,6 @@ export class StudentCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("PREGUNTAR PORQUE NO VAN PHONES EN STUDENT-CARD")
-    console.log(this.student.phones);
+    console.log(this.student);
   }
 }

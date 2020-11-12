@@ -1,9 +1,8 @@
 import { SubjectService } from './../services/subject.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Student } from '../model/student';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-student-form',
@@ -14,19 +13,18 @@ export class StudentFormComponent implements OnInit {
 
   studentForm: FormGroup;
   isSubmitted = false;
-  url;
   subjectName;
 
   constructor(public subjectService: SubjectService, private router: Router, 
               private formBuilder: FormBuilder, private route: ActivatedRoute){ }
 
   ngOnInit(): void {
-    this.subjectName = this.route.snapshot.paramMap.get("subjectName")
+    this.subjectName = this.route.snapshot.paramMap.get('subjectName')
     this.studentForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.nullValidator]],
       address: ['', [Validators.required, Validators.nullValidator]],
       phone1: ['', [Validators.required, Validators.nullValidator]],
-      phone2: ['']
+      phone2: ['', [Validators.required, Validators.nullValidator]]
     });
   }
   get formControls(){
@@ -38,10 +36,17 @@ export class StudentFormComponent implements OnInit {
     if(this.studentForm.invalid){
       return;
     }
-    this.subjectService.addStudent(this.studentForm.value, this.subjectName)
-    .subscribe((student: Student) => {
+    const name = this.studentForm.value.name;
+    const address = this.studentForm.value.address;
+    const phone1 = this.studentForm.value.phone1;
+    const phone2 = this.studentForm.value.phone2;
+    let phones = [{"key":"home","value":phone1}];
+    phones.push({"key":"work","value":phone2});
+    let student = {'name': name, 'address': address, 'phones': phones};
+    console.log("NEW STUDENT: ", student);
+    this.subjectService.addStudent(student, this.subjectName)
+    .subscribe(() => {
       this.router.navigateByUrl('/subjects');
     });
   }
-
 }
