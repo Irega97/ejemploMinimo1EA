@@ -22,25 +22,27 @@ const getSubject = async (req: Request, res: Response) => {
 
 const addStudentToSubject = async (req: Request, res: Response) => {
     let subjectName = req.params.subjectName;
+    
     let studentName = req.body.name; 
-    let studentAddress = req.body.address; 
-    let studentID; 
-    let student = new Student({ "name": studentName, "address": studentAddress });
+    let studentAddress = req.body.address;
+    let studentPhones = req.body.phones;
+    
     let s = await Student.findOne({name: studentName}); 
     console.log("S: ", s); 
     if(!s) { 
-        student.save().then((data) => { 
-        studentID = data.id; 
-        console.log("Sid: ", studentID); 
+        let student = new Student({ "name": studentName, "address": studentAddress, "phones": studentPhones });
+        console.log("Student new: ", student);
+        await student.save().then((data) => { 
+            s = data; 
+            console.log("Sid: ", s?._id); 
         });
-    } else studentID = s._id; 
-    console.log("Student ID",studentID );
-    await Subject.updateOne({"name": subjectName}, {$addToSet: {students: studentID}}).then(data => { 
+    } 
+    await Subject.updateOne({"name": subjectName}, {$addToSet: {students: s?._id}}).then(data => { 
         if (data.nModified == 1) { 
             console.log("Student added successfully"); 
             res.status(201).send({message: 'Student added successfully'}); 
         } else { 
-            res.status(409).json('Student already exists!!!') 
+            res.status(202).json('Student already exists!!!') 
     } }).catch((err) => { 
         console.log("error ", err); 
         res.status(500).json(err); 

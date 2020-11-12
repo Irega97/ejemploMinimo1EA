@@ -43,7 +43,8 @@ const getStudent = async (req: Request, res: Response) => {
     }
 }
 
-function newStudent (req: Request, res: Response): void {
+const newStudent = async (req: Request, res: Response) => {
+    try{
     let student = new Student({
         "name" : req.body.name,
         "address" : req.body.address,
@@ -51,10 +52,11 @@ function newStudent (req: Request, res: Response): void {
     });
     student.save().then((data) => {
         return res.status(201).json(data);
-    }).catch((err) => {
+    });
+    } catch(err) {
         return res.status(500).json(err);
-    })
+    }
 }
 
 //export default { getCourses, postCourse };
-export default { getStudents, getStudent };
+export default { getStudents, getStudent, newStudent };
