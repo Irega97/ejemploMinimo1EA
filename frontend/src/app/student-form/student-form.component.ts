@@ -1,3 +1,4 @@
+import { StudentService } from './../services/student.service';
 import { SubjectService } from './../services/subject.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,11 +16,11 @@ export class StudentFormComponent implements OnInit {
   isSubmitted = false;
   subjectName;
 
-  constructor(public subjectService: SubjectService, private router: Router, 
+  constructor(public subjectService: SubjectService, public studentService: StudentService, private router: Router, 
               private formBuilder: FormBuilder, private route: ActivatedRoute){ }
 
   ngOnInit(): void {
-    this.subjectName = this.route.snapshot.paramMap.get('subjectName')
+    this.subjectName = this.route.snapshot.paramMap.get('subjectName');
     this.studentForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.nullValidator]],
       address: ['', [Validators.required, Validators.nullValidator]],
@@ -44,9 +45,16 @@ export class StudentFormComponent implements OnInit {
     phones.push({"key":"work","value":phone2});
     let student = {'name': name, 'address': address, 'phones': phones};
     console.log("NEW STUDENT: ", student);
-    this.subjectService.addStudent(student, this.subjectName)
-    .subscribe(() => {
-      this.router.navigateByUrl('/subjects');
-    });
+    if(this.subjectName==null) {
+      this.studentService.newStudent(student)
+      .subscribe(() => {
+        this.router.navigateByUrl('/students');
+      });
+    } else {
+      this.subjectService.addStudent(student, this.subjectName)
+      .subscribe(() => {
+        this.router.navigateByUrl('/subjects');
+      })
+    }
   }
 }

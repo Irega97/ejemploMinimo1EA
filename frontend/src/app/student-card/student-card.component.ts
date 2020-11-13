@@ -1,6 +1,7 @@
+import { SubjectService } from './../services/subject.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { Student } from '../model/student';
-import { Subject } from '../model/subject';
 
 @Component({
   selector: 'app-student-card',
@@ -15,9 +16,18 @@ export class StudentCardComponent implements OnInit {
   @Input()
   index: number;
 
-  constructor() { }
+  subjectName: string;
+
+  constructor(public subjectService: SubjectService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.subjectName = this.route.snapshot.paramMap.get('subjectName');
     console.log(this.student);
+  }
+
+  newStudent(){
+    this.subjectService.addStudent(this.student, this.subjectName).subscribe(() => {
+      this.router.navigateByUrl('/subjects')
+    });
   }
 }

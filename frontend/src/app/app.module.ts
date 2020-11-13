@@ -12,6 +12,8 @@ import { StudentCardComponent } from './student-card/student-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StudentFormComponent } from './student-form/student-form.component';
 import { SubjectFormComponent } from './subject-form/subject-form.component';
+import { StudentsComponent } from './students/students.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { SubjectFormComponent } from './subject-form/subject-form.component';
     SubjectsComponent,
     StudentCardComponent,
     SubjectFormComponent,
-    StudentFormComponent
+    StudentFormComponent,
+    StudentsComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

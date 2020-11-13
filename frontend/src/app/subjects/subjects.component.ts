@@ -24,4 +24,8 @@ export class SubjectsComponent implements OnInit {
   addSubject() {
     this.router.navigateByUrl('/newSubject');
   }
+
+  admin() {
+    this.router.navigateByUrl('/admin');
+  }
 }

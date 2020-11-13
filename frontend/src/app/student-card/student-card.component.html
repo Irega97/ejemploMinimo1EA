@@ -13,5 +13,9 @@
          <p *ngIf="phone?.value!=null">{{phone.key}} : {{phone.value}} </p>
     </div>
     
+    <div class="center">
+        <button (click)="newStudent()" class="button" *ngIf="subjectName!=null">+</button>
+    </div>
+
 </div>
 <br>

@@ -12,6 +12,10 @@ export class StudentService {
   constructor(private http: HttpClient) { }
 
   getStudents(){
-    return this.http.get<Student[]>(environment.apiURL+'/student')
+    return this.http.get<Student[]>(environment.apiURL+'/student/all')
+  }
+
+  newStudent(newStudent: Student){
+    return this.http.post(environment.apiURL + '/student/new', newStudent);
   }
 }

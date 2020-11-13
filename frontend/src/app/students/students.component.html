@@ -1,0 +1,16 @@
+<div class="text">
+    <h1>STUDENTS</h1>
+  </div>
+
+  <div class="center">
+    <button (click)="newStudent()" class="button" >Add new student</button>
+    <button (click)="admin()" class="button"> Back </button>
+  </div>
+
+  <div class="students">
+      <!-- SELECTOR DE COURSE-CARD.COMPONENT.TS -->
+      <app-student-card *ngFor="let student of students; index as i"
+        [student]="student" [index]="i">
+      </app-student-card>  
+  </div>
+  
