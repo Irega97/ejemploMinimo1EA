@@ -1,4 +1,3 @@
-import { Student } from './../model/student';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from '../model/subject';
 import { SubjectService } from '../services/subject.service';

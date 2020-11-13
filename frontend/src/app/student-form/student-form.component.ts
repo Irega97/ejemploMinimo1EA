@@ -41,8 +41,7 @@ export class StudentFormComponent implements OnInit {
     const address = this.studentForm.value.address;
     const phone1 = this.studentForm.value.phone1;
     const phone2 = this.studentForm.value.phone2;
-    let phones = [{"key":"home","value":phone1}];
-    phones.push({"key":"work","value":phone2});
+    const phones = [{"key":"home","value":phone1},{"key":"work","value":phone2}];
     let student = {'name': name, 'address': address, 'phones': phones};
     console.log("NEW STUDENT: ", student);
     if(this.subjectName==null) {

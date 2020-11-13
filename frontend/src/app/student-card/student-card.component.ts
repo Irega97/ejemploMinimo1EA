@@ -22,11 +22,10 @@ export class StudentCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.subjectName = this.route.snapshot.paramMap.get('subjectName');
-    console.log(this.student);
   }
 
   newStudent(){
-    this.subjectService.addStudent(this.student, this.subjectName).subscribe(() => {
+    this.subjectService.addStudent(this.student, this.subjectName).subscribe((res: Response) => {
       this.router.navigateByUrl('/subjects')
     });
   }

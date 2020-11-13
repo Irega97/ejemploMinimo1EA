@@ -31,6 +31,7 @@ export class SubjectFormComponent implements OnInit {
     }
     this.subjectService.newSubject(this.subjectForm.value)
     .subscribe((subject: Subject) => {
+      console.log("NEW SUBJECT: ", subject);
       this.router.navigateByUrl('/subjects');
     });
   }

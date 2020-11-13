@@ -27,14 +27,12 @@ const addStudentToSubject = async (req: Request, res: Response) => {
     let studentAddress = req.body.address;
     let studentPhones = req.body.phones;
     
-    let s = await Student.findOne({name: studentName}); 
-    console.log("S: ", s); 
+    let s = await Student.findOne({name: studentName});  
     if(!s) { 
         let student = new Student({ "name": studentName, "address": studentAddress, "phones": studentPhones });
         console.log("Student new: ", student);
         await student.save().then((data) => { 
-            s = data; 
-            console.log("Sid: ", s?._id); 
+            s = data;  
         });
     } 
     await Subject.updateOne({"name": subjectName}, {$addToSet: {students: s?._id}}).then(data => { 
@@ -42,7 +40,7 @@ const addStudentToSubject = async (req: Request, res: Response) => {
             console.log("Student added successfully"); 
             res.status(201).send({message: 'Student added successfully'}); 
         } else { 
-            res.status(202).json('Student already exists!!!') 
+            res.status(409).json('Student already exists!!!') 
     } }).catch((err) => { 
         console.log("error ", err); 
         res.status(500).json(err); 
@@ -54,7 +52,6 @@ const addSubject = async (req: Request, res: Response) => {
         "name": req.body.name,
         "students": []
     });
-    console.log(req.body);
     subject.save().then((data) => {
         return res.status(201).json(data);
     }).catch((err) => {
